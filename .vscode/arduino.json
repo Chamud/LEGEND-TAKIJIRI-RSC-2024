@@ -1,7 +1,8 @@
 {
     "configuration": "PartitionScheme=default,CPUFreq=240,FlashMode=qio,FlashFreq=80,FlashSize=4M,UploadSpeed=921600,LoopCore=1,EventsCore=1,DebugLevel=none,EraseFlash=none",
     "board": "esp32:esp32:esp32da",
-    "port": "COM5",
+    "port": "COM7",
     "programmer": "esptool",
-    "sketch": "ESP_Now_Receiver\\ESP_Now_Receiver.ino"
+    "sketch": "Tx\\Tx.ino",
+    "output": "logs"
 }
