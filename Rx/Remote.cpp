@@ -6,7 +6,9 @@ Remote::Remote(int j1X, int j1Y,
                int j4X, 
                int j5X, 
                int j6Y, 
-               int s1Pin, int s2Pin, int s3Pin)
+               int s1Pin, 
+               int s2Pin, 
+               int s3Pin)
     : joystick1(j1X, j1Y),
       joystick2(j2X, 0),
       joystick3(j3X, j3Y),

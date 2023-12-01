@@ -6,13 +6,15 @@
 
 class Remote {
 public:
-    Remote(int j1X, int j1Y,
-               int j2X, 
-               int j3X, int j3Y,
-               int j4X, 
-               int j5X, 
-               int j6Y, 
-               int s1Pin, int s2Pin, int s3Pin);
+    Remote( int j1X, int j1Y,
+            int j2X, 
+            int j3X, int j3Y,
+            int j4X, 
+            int j5X, 
+            int j6Y, 
+            int s1Pin, 
+            int s2Pin, 
+            int s3Pin);
 
     void initialize();
     void readValues();
