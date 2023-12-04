@@ -7,9 +7,11 @@ class Switch {
 public:
     Switch(int pin);
     bool isOn();
+    void readOn();
 
 private:
     int pin;
+    bool valPin;
 };
 
 #endif

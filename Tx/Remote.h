@@ -18,7 +18,7 @@ public:
 
     Remote();
     void initialize();
-    Remote readValues();
+    void readValues();
     void printValues();
 
     Joystick& getJoystick1();

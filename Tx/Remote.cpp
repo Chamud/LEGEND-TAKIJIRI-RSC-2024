@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "Remote.h"
 
 Remote::Remote(int j1X, int j1Y,
@@ -34,36 +35,24 @@ Remote::Remote()
       s2(0),            
       s3(0) {} 
 
-Remote Remote::readValues() {
+void Remote::readValues() {
     
-    int j1x = joystick1.getHorizontal();
-    int j1y = joystick1.getVertical();
+    joystick1.readHorizontal();
+    joystick1.readVertical();
 
-    int j2x = joystick2.getHorizontal();
+    joystick2.readHorizontal();
 
-    int j3x = joystick3.getHorizontal();
-    int j3y = joystick3.getVertical();
+    joystick3.readHorizontal();
+    joystick3.readVertical();
 
-    int j4x = joystick4.getHorizontal();
-    int j5x = joystick5.getHorizontal();
+    joystick4.readHorizontal();
+    joystick5.readHorizontal();
     
-    int j6y = joystick6.getVertical();
+    joystick6.readVertical();
 
-    bool s1x = s1.isOn();
-    bool s2x = s2.isOn();
-    bool s3x = s3.isOn();
-
-    Remote remote(j1x, j1y,
-               j2x, 
-               j3x, j3y,
-               j4x, 
-               j5x, 
-               j6y, 
-               static_cast<int>(s1x), 
-               static_cast<int>(s2x), 
-               static_cast<int>(s3x));
-
-    return remote;
+    s1.readOn();
+    s2.readOn();
+    s3.readOn();
 }
 
 
@@ -104,7 +93,7 @@ Switch& Remote::getSwitch3() {
 }
 
 void Remote::printValues() {
-    Serial.println("Remote Object Values:");
+    Serial.println("\nRemote Object Values:");
     Serial.println("===================================");
     Serial.println("Joystick\tHorizontal\tVertical");
     Serial.println("-----------------------------------");

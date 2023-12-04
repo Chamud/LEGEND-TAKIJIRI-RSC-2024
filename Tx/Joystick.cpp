@@ -6,6 +6,8 @@
 Joystick::Joystick(int pinHorizontal, int pinVertical) {
     this->pinHorizontal = pinHorizontal;
     this->pinVertical = pinVertical;
+    this->valHorizontal = 0;
+    this->valVertical = 0;
     
     if (pinHorizontal != 0) {
         pinMode(pinHorizontal, INPUT);
@@ -16,16 +18,23 @@ Joystick::Joystick(int pinHorizontal, int pinVertical) {
     }
 }
 
-int Joystick::getHorizontal() {
-    if (pinHorizontal == 0) {
-        return 0;
+void Joystick::readHorizontal() {
+    if (pinHorizontal != 0) {
+        valHorizontal = analogRead(pinHorizontal);
     }
-    return analogRead(pinHorizontal);
+}
+
+void Joystick::readVertical() {
+    if (pinVertical != 0) {
+        valVertical = analogRead(pinVertical);
+    }
+    
+}
+
+int Joystick::getHorizontal() {
+    return valHorizontal;
 }
 
 int Joystick::getVertical() {
-    if (pinVertical == 0) {
-        return 0;
-    }
-    return analogRead(pinVertical);
+    return valVertical;
 }

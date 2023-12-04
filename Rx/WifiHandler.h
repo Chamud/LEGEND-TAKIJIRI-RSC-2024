@@ -8,7 +8,8 @@
 class WiFiHandler {
 public:
     WiFiHandler();
-    void init();
+    bool init();
+    Remote getRemote();
     static void onDataRecv(const uint8_t *mac, const uint8_t *incomingData, int len);
 };
 
