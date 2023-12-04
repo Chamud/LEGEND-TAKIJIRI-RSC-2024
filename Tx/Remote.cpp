@@ -23,24 +23,49 @@ void Remote::initialize() {
     
 }
 
-void Remote::readValues() {
-    joystick1.getHorizontal();
-    joystick1.getVertical();
+Remote::Remote()
+    : joystick1(0, 0), 
+      joystick2(0, 0),  
+      joystick3(0, 0),  
+      joystick4(0, 0),  
+      joystick5(0, 0),  
+      joystick6(0, 0),  
+      s1(0),           
+      s2(0),            
+      s3(0) {} 
 
-    joystick2.getHorizontal();
-
-    joystick3.getHorizontal();
-    joystick3.getVertical();
-
-    joystick4.getHorizontal();
-    joystick5.getHorizontal();
+Remote Remote::readValues() {
     
-    joystick6.getVertical();
+    int j1x = joystick1.getHorizontal();
+    int j1y = joystick1.getVertical();
 
-    s1.isOn();
-    s2.isOn();
-    s3.isOn();
+    int j2x = joystick2.getHorizontal();
+
+    int j3x = joystick3.getHorizontal();
+    int j3y = joystick3.getVertical();
+
+    int j4x = joystick4.getHorizontal();
+    int j5x = joystick5.getHorizontal();
+    
+    int j6y = joystick6.getVertical();
+
+    bool s1x = s1.isOn();
+    bool s2x = s2.isOn();
+    bool s3x = s3.isOn();
+
+    Remote remote(j1x, j1y,
+               j2x, 
+               j3x, j3y,
+               j4x, 
+               j5x, 
+               j6y, 
+               static_cast<int>(s1x), 
+               static_cast<int>(s2x), 
+               static_cast<int>(s3x));
+
+    return remote;
 }
+
 
 Joystick& Remote::getJoystick1() {
     return joystick1;
@@ -76,4 +101,38 @@ Switch& Remote::getSwitch2() {
 
 Switch& Remote::getSwitch3() {
     return s3;
+}
+
+void Remote::printValues() {
+    Serial.println("Remote Object Values:");
+    Serial.println("===================================");
+    Serial.println("Joystick\tHorizontal\tVertical");
+    Serial.println("-----------------------------------");
+    printJoystickValues("Joystick1", joystick1);
+    printJoystickValues("Joystick2", joystick2);
+    printJoystickValues("Joystick3", joystick3);
+    printJoystickValues("Joystick4", joystick4);
+    printJoystickValues("Joystick5", joystick5);
+    printJoystickValues("Joystick6", joystick6);
+    Serial.println("-----------------------------------");
+    Serial.println("Switch\t\tState");
+    Serial.println("-----------------------------------");
+    printSwitchValues("Switch1", s1);
+    printSwitchValues("Switch2", s2);
+    printSwitchValues("Switch3", s3);
+    Serial.println("===================================");
+}
+
+void Remote::printJoystickValues(const char* name, Joystick& joystick) {
+    Serial.print(name);
+    Serial.print("\t");
+    Serial.print(joystick.getHorizontal());
+    Serial.print("\t\t");
+    Serial.println(joystick.getVertical());
+}
+
+void Remote::printSwitchValues(const char* name, Switch& switchObj) {
+    Serial.print(name);
+    Serial.print("\t\t");
+    Serial.println(switchObj.isOn() ? "ON" : "OFF");
 }

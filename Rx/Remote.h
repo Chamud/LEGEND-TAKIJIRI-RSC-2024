@@ -16,8 +16,10 @@ public:
             int s2Pin, 
             int s3Pin);
 
+    Remote();
     void initialize();
-    void readValues();
+    Remote readValues();
+    void printValues();
 
     Joystick& getJoystick1();
     Joystick& getJoystick2();
@@ -39,6 +41,8 @@ private:
     Switch s1;
     Switch s2;
     Switch s3;
+    void printJoystickValues(const char* name, Joystick& joystick);
+    void printSwitchValues(const char* name, Switch& switchObj);
 };
 
 #endif
