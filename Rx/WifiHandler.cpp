@@ -27,7 +27,7 @@ void WiFiHandler::onDataRecv(const uint8_t *mac, const uint8_t *incomingData, in
         // Data received from the known sender
         memcpy(&remote, incomingData, sizeof(remote));
         Serial.println("\nReceived remote signal");
-        remote.printValues();
+        // remote.printValues();
     } else {
         // Data received from an unknown sender
         Serial.println("\nReceived data from an unknown sender");

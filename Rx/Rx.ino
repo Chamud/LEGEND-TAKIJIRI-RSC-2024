@@ -1,6 +1,8 @@
 #include "Remote.h"
 #include "WifiHandler.h"
 
+// REPLACE WITH desired Loop delay
+#define ping 1000
 // REPLACE WITH SENDER MAC Address
 uint8_t senderMacAddress[] = {0xb0, 0xa7, 0x32, 0x23, 0x16, 0x38};
 
@@ -17,7 +19,7 @@ void setup() {
 }
 
 void loop() {
-    delay(1000);
+    delay(ping);
 
     remote = wifiHandler.getRemote();
 
