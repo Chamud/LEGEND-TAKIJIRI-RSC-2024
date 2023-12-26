@@ -1,53 +1,37 @@
-// SPI_Slave.ino
-#include <SPI.h>
+#include <Wire.h>
 
-#define SCLK_PIN_SLAVE SCK
-#define MOSI_PIN_SLAVE MOSI
-#define MISO_PIN_SLAVE MISO
-#define SS_PIN_SLAVE   SS
+const int SLAVE_ADDRESS = 9;
 
 void setup() {
   Serial.begin(115200);
-
-  // Start the SPI library
-  SPI.begin();
-
-  // Configure SPI settings for slave
-  SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
-
-  // Set Slave Select pin as INPUT
-  // Set Slave Select pin as INPUT_PULLUP
-  pinMode(SS_PIN_SLAVE, INPUT_PULLUP);
-
-  Serial.println("-------------");
-  Serial.println("Slave Began");
-  Serial.println("-------------");
-
-  Serial.print("MOSI: ");
-  Serial.println(MOSI_PIN_SLAVE);
-
-  Serial.print("MISO: ");
-  Serial.println(MISO_PIN_SLAVE);
-
-  Serial.print("SCK: ");
-  Serial.println(SCLK_PIN_SLAVE);
-
-  Serial.print("SS: "); 
-  Serial.println(SS_PIN_SLAVE);
-
-  Serial.println("-------------");
+  Wire.begin(SLAVE_ADDRESS);
+  Wire.onReceive(receiveEvent);
 }
 
 void loop() {
-  if (digitalRead(SS_PIN_SLAVE) == LOW) {  // Check if selected by master
-    
-    byte dataToSend = 0x08; // Data to be sent
-    byte receivedData = SPI.transfer(dataToSend); 
+  // Do nothing in the loop
+}
+
+void receiveEvent(int numBytes) {
+  int sendData = 273;
+
+  if (Wire.available() >= 2) {
+    byte highByte = Wire.read();
+    byte lowByte = Wire.read();
+    int receivedData = (int16_t)((highByte << 8) | lowByte);
+
+    sendResponse(sendData);
 
     Serial.print("Sent: ");
-    Serial.print(dataToSend, HEX);
+    Serial.print(sendData);
     Serial.print(" | Received: ");
-    Serial.println(receivedData, HEX);
-
+    Serial.println(receivedData);
   }
+}
+
+void sendResponse(int data) {
+  Wire.beginTransmission(SLAVE_ADDRESS);
+  Wire.write(highByte(data));
+  Wire.write(lowByte(data));
+  Wire.endTransmission();
 }
