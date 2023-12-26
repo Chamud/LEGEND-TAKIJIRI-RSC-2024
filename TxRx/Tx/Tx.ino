@@ -2,7 +2,7 @@
 #include "WifiHandler.h"
 
 // REPLACE WITH desired Loop delay
-#define ping 2000
+#define ping 50
 // REPLACE WITH RECEIVER MAC Address
 uint8_t broadcastAddress[] = {0xc4, 0xde, 0xe2, 0xc0, 0x7f, 0xdc};
 

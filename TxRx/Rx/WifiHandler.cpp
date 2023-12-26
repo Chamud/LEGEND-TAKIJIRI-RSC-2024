@@ -28,8 +28,8 @@ void WiFiHandler::onDataRecv(const uint8_t *mac, const uint8_t *incomingData, in
         for (int i = 0; i < 5; ++i) {
             arr[i] = (int16_t)((incomingData[2 * i + 1] << 8) | incomingData[2 * i]);
         }
-        Serial.println("\nReceived remote signal");
-        Serial.print("Data : ");
+        //Serial.println("\nReceived remote signal");
+        //Serial.print("Data : ");
         for (int i = 0; i < 5; ++i) {
             Serial.print(arr[i]);
             if (i < 4) {

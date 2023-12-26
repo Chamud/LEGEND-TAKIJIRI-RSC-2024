@@ -42,7 +42,7 @@ void WifiHandler::sendData(const int16_t data[]) {
   // Send message via ESP-NOW
   esp_err_t result = esp_now_send(this->peerInfo.peer_addr, unitdata, sizeof(unitdata));
 
-  Serial.print("Sending : ");
+  //Serial.print("Sending : ");
   // for (int i = 0; i < 5; ++i) {
   //   Serial.print(data[i]);
   //   if (i < 4) {
@@ -58,9 +58,9 @@ void WifiHandler::sendData(const int16_t data[]) {
   }
   Serial.println();
 
-  Serial.println(result == ESP_OK ? "Sent with success" : "Error sending the data");
+  //Serial.println(result == ESP_OK ? "Sent with success" : "Error sending the data");
 }
 
 void WifiHandler::OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+  //Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 }
