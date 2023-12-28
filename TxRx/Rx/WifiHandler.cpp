@@ -31,12 +31,12 @@ void WiFiHandler::onDataRecv(const uint8_t *mac, const uint8_t *incomingData, in
         //Serial.println("\nReceived remote signal");
         //Serial.print("Data : ");
         for (int i = 0; i < 5; ++i) {
-            Serial.print(arr[i]);
+            //Serial.print(arr[i]);
             if (i < 4) {
-            Serial.print(" | ");
+            //Serial.print(" | ");
             }
         }
-        Serial.println();
+        //Serial.println();
         // for (int i = 0; i < 2 * 5; i += 2) {
         //     Serial.print(incomingData[i], HEX);
         //     if(i<10){
