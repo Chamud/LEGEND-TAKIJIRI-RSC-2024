@@ -10,6 +10,8 @@ WifiHandler::WifiHandler(const uint8_t* broadcastAddress) {
 bool WifiHandler::init() {
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
+  Serial.println("--------------SENDER MAC-----------------");
+  Serial.println(WiFi.macAddress());
 
   // Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
@@ -34,33 +36,41 @@ bool WifiHandler::init() {
 }
 
 void WifiHandler::sendData(const int16_t data[]) {
-  uint8_t unitdata[2 * 5];
-  for (int i = 0; i < 5; ++i) {
-        unitdata[2 * i] = (uint8_t)(data[i] & 0xFF);        // Low byte
-        unitdata[2 * i + 1] = (uint8_t)((data[i] >> 8) & 0xFF); // High byte
-    }
+  // int16_t unsigneddata[8];
+  // for (int i = 0; i < 8; ++i) {
+  //   if(data[i]>255){
+  //     unsigneddata[i] = 500;
+  //   }else if(data[i]<255){
+  //     unsigneddata[i] = 0;
+  //   }else{
+  //     unsigneddata[i] = data[i] + 255;
+  //   }
+  // }
+  uint8_t unitdata[2 * 8];
+  for (int i = 0; i < 8; ++i) {
+  //   unitdata[2 * i] = (uint8_t)(unsigneddata[i] & 0xFF);        // Low byte
+  //   unitdata[2 * i + 1] = (uint8_t)((unsigneddata[i] >> 8) & 0xFF); // High byte
+    unitdata[2 * i] = (uint8_t)(data[i] & 0xFF);        // Low byte
+    unitdata[2 * i + 1] = (uint8_t)((data[i] >> 8) & 0xFF); // High byte
+  }
   // Send message via ESP-NOW
   esp_err_t result = esp_now_send(this->peerInfo.peer_addr, unitdata, sizeof(unitdata));
 
-  //Serial.print("Sending : ");
-  // for (int i = 0; i < 5; ++i) {
-  //   Serial.print(data[i]);
-  //   if (i < 4) {
-  //     Serial.print(" | ");
-  //   }
-  // }
-  for (int i = 0; i < 2 * 5; i += 2) {
+  Serial.println("Sending : ");
+  for (int i = 0; i < 4; ++i) {
+    Serial.print(data[i]);
+    Serial.print(" | ");
+  }
+  Serial.println();
+  for (int i = 0; i < 2 * 4; i += 2) {
     Serial.print((int16_t)unitdata[i]);
-    //Serial.print(unitdata[i], HEX);
-    if(i<10){
-      Serial.print(" | ");
-    }
+    Serial.print(" | ");
   }
   Serial.println();
 
-  //Serial.println(result == ESP_OK ? "Sent with success" : "Error sending the data");
+  Serial.println(result == ESP_OK ? "Sent with success" : "Error sending the data");
 }
 
 void WifiHandler::OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-  //Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 }
