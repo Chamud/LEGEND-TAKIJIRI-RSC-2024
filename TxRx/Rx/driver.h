@@ -4,10 +4,11 @@
 class driver {
 public:
     driver();
-    static void go(int val);
-    static void rev(int val);
-    static void breaks();
-    static void rest();
+    driver(int pinA, int pinB);
+    void run(int val);
+private:
+    int pinA;
+    int pinB;
 };
 
 #endif

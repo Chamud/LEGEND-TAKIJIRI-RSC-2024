@@ -1,4 +1,5 @@
 #include "WifiHandler.h"
+#include "driver.h"
 
 // REPLACE WITH desired Loop delay
 #define ping 50
@@ -9,17 +10,20 @@ WiFiHandler wifiHandler;
 
 int loglevel = 4;
 
-int16_t arr[5] = {0,0,0,0,0};
+int16_t arr[4] = {0,0,0,0};
 
-//const int ledPins[] = {2, 4, 5, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 32, 33};
-//const int ledPins[] = {2, 4, 5,             15, 16, 17, 18, 19};
-//const int ledPins[] = {                                         21, 22, 23};
-//const int ledPins[] = {         12, 13, 14,                                 25, 26, 27, 32, 33};                                          
-const int ledPins[] = {2, 4};
-const int numPins = sizeof(ledPins) / sizeof(ledPins[0]);
-const int freq = 5000;
-const int ledChannel = 0;
-const int resolution = 12;
+#define M1A 12
+#define M1B 13
+#define M2A 14
+#define M2B 25
+#define M3A 26
+#define M3B 27
+#define M4A 32
+#define M4B 33
+driver M1;
+driver M2;
+driver M3;
+driver M4;
 
 void setup() {
     Serial.begin(115200);
@@ -28,25 +32,23 @@ void setup() {
         Serial.println("WiFi initialization failed");
         return;
     }
-        for (int i = 0; i < numPins; i++) {
-        pinMode(ledPins[i], OUTPUT);
-    }
+    pinMode(M1A, OUTPUT);
+    pinMode(M1B, OUTPUT);
+    M1 = driver(M1A, M1B);
+
+    pinMode(M2A, OUTPUT);
+    pinMode(M2B, OUTPUT);
+    M2 = driver(M2A, M2B);
+
+    pinMode(M3A, OUTPUT);
+    pinMode(M3B, OUTPUT);
+    M3 = driver(M3A, M3B);
+
+    pinMode(M4A, OUTPUT);
+    pinMode(M4B, OUTPUT);
+    M4 = driver(M4A, M4B);
 }
 
 void loop() {
     delay(ping);  
-    
-    for (int i = 0; i < numPins; i++) {
-        Serial.println("------------------------------------------");
-        Serial.println(ledPins[i]);
-        ledcSetup(ledChannel, freq, resolution);
-        ledcAttachPin(ledPins[i], ledChannel);
-        for(int dutyCycle = 0; dutyCycle <= 4096; dutyCycle++){
-        // changing the LED brightness with PWM
-            ledcWrite(ledChannel, dutyCycle);
-            delay(5); 
-        }  
-        ledcWrite(ledChannel, 0);
-        ledcDetachPin(ledPins[i]);
-    }
 }
