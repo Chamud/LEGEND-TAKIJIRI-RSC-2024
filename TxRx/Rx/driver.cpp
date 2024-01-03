@@ -1,34 +1,35 @@
 #include "driver.h"
-#include "Arduino.h"
 
-//const int ledPins[] = {2, 4, 5, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27, 32, 33};
+driver::driver(){}
 
-const int freq = 5000;
-const int resolution = 12;
+void driver::DriveMotor(int16_t j1, int16_t j2, int16_t j3){
 
-driver::driver(){
+  int M1 = j1 - j2 - j3;
+  int M2 = j1 + j2 - j3;
+  int M3 = j1 + j2 + j3;
+  int M4 = j1 - j2 + j3;
 
-}
+  Serial.println("Motors : "+String(M1)+" : "+String(M2)+" : "+String(M3)+" : "+String(M4));
 
-driver::driver(int pinA, int pinB){
-    this->pinA = pinA;
-    this->pinB = pinB;
- 
-    ledcSetup(pinA, freq, resolution);
-    ledcSetup(pinB, freq, resolution);
-    ledcAttachPin(pinA, pinA);
-    ledcAttachPin(pinB, pinB);
-}
+  digitalWrite(MFL_RELAY1, M1 > 0 ? LOW : HIGH);
+  digitalWrite(MFL_RELAY2, M1 < 0 ? LOW : HIGH);
 
-void driver::run(int val){
-    if(val>3){
-        ledcWrite(pinA, val);
-        ledcWrite(pinB, 0);
-    }else if(val<-3){
-        ledcWrite(pinA, 0);
-        ledcWrite(pinB, -val);
-    }else{
-        ledcWrite(pinA, 0);
-        ledcWrite(pinB, 0);
-    }
+  digitalWrite(MFR_RELAY1, M2 > 0 ? LOW : HIGH);
+  digitalWrite(MFR_RELAY2, M2 < 0 ? LOW : HIGH);
+
+  digitalWrite(MBL_RELAY1, M3 > 0 ? LOW : HIGH);
+  digitalWrite(MBL_RELAY2, M3 < 0 ? LOW : HIGH);
+
+  digitalWrite(MBR_RELAY1, M4 > 0 ? LOW : HIGH);
+  digitalWrite(MBR_RELAY2, M4 < 0 ? LOW : HIGH);
+
+  ledcWrite(0, 4095 - abs(M1));
+  ledcWrite(1, 4095 - abs(M2));
+  ledcWrite(2, 4095 - abs(M3));
+  ledcWrite(3, 4095 - abs(M4));
+
+//   ledcWrite(0, 4095 - abs(M1) > 4095 ? 4095 : abs(M1));
+//   ledcWrite(1, 4095 - abs(M2) > 4095 ? 4095 : abs(M2));
+//   ledcWrite(2, 4095 - abs(M3) > 4095 ? 4095 : abs(M3));
+//   ledcWrite(3, 4095 - abs(M4) > 4095 ? 4095 : abs(M4));
 }
