@@ -2,7 +2,7 @@
 #include "WifiHandler.h"
 
 // REPLACE WITH desired Loop delay
-#define ping 500
+#define ping 50
 // REPLACE WITH RECEIVER MAC Address 90:38:0C:ED:79:58
 uint8_t broadcastAddress[] = {0x90, 0x38, 0x0c, 0xed, 0x79, 0x58};
 
@@ -30,9 +30,9 @@ void setup() {
 
 void loop() {
     arr[0] = mapValues(analogRead(X1), 300, 3500);
-    // arr[1] = mapValues(analogRead(Y1), 300, 3500);
-    // arr[2] = mapValues(analogRead(X2), 300, 3500);
-    // arr[3] = mapValues(analogRead(Y2), 300, 3500);
+    arr[1] = mapValues(analogRead(Y1), 300, 3500);
+    arr[2] = mapValues(analogRead(X2), 300, 3500);
+    arr[3] = mapValues(analogRead(Y2), 300, 3500);
     arr[4] = digitalRead(B);
     wifiHandler.sendData(arr);
     delay(ping);

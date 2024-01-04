@@ -28,6 +28,9 @@ void setup() {
     pinMode(MBL,OUTPUT);
     pinMode(MBR,OUTPUT);
 
+    
+    pinMode(KICK,OUTPUT);
+
     pinMode(MFL_RELAY1,OUTPUT);
     pinMode(MFL_RELAY2,OUTPUT);
 
@@ -58,7 +61,8 @@ void setup() {
 }
 
 void loop() {
-    int16_t data[] = {1};
+    sensorval = analogRead(KICK_PF);
+    int16_t data[] = {sensorval};
     //wifiHandler.sendData(data);
     delay(ping);  
 }

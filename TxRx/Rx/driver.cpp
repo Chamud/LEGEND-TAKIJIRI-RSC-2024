@@ -33,3 +33,21 @@ void driver::DriveMotor(int16_t j1, int16_t j2, int16_t j3){
 //   ledcWrite(2, 4095 - abs(M3) > 4095 ? 4095 : abs(M3));
 //   ledcWrite(3, 4095 - abs(M4) > 4095 ? 4095 : abs(M4));
 }
+
+void driver::DriveKick(bool sensor, bool btn){
+
+  counter++;
+
+  if(sensor && !btn && counter > delaytime/ping){
+    runkick = false;
+    counter = 0;
+  }else{
+    runkick = true;
+  }
+
+  if(runkick){
+    digitalWrite(KICK, HIGH);
+  }else{
+    digitalWrite(KICK, LOW);
+  }
+}

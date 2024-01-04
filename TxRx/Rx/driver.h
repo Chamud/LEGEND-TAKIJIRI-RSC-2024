@@ -22,10 +22,17 @@
 #define KICK 27
 #define KICK_PF 35
 
+static int sensorval;
+static bool runkick = false;
+static int counter = 0;
+static int delaytime = 2000;
+extern int ping;
+
 class driver {
 public:
     driver();
     void DriveMotor(int16_t j1, int16_t j2, int16_t j3);
+    void DriveKick(bool sensor, bool btn);
 
 };
 #endif

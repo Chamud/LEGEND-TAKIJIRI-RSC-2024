@@ -54,6 +54,10 @@ void WiFiHandler::onDataRecv(const uint8_t *mac, const uint8_t *incomingData, in
         Logger.logln(" ", 4);
         
         driverobj.DriveMotor(arr[0],arr[1],arr[2]);
+        // Adjust 
+        bool sensorOn = sensorval>500;
+        bool btnPressed = arr[4]==1;
+        driverobj.DriveKick(sensorOn, btnPressed);
 
     } else {
         // Data received from an unknown sender
