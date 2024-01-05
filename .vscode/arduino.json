@@ -3,6 +3,6 @@
     "board": "esp32:esp32:esp32da",
     "port": "COM5",
     "programmer": "esptool",
-    "sketch": "TxRx\\Tx\\Tx.ino",
+    "sketch": "TxRx\\Rx\\Rx.ino",
     "output": "logs"
 }

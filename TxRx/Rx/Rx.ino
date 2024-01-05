@@ -2,13 +2,15 @@
 #include "driver.h"
 
 // REPLACE WITH desired Loop delay
-#define ping 50
+int ping = 1000;
 // REPLACE WITH SENDER MAC Address
-uint8_t senderMacAddress[] = {0xc4, 0xde, 0xe2, 0xc0, 0x7f, 0xdc};
+// uint8_t senderMacAddress[] = {0xc4, 0xde, 0xe2, 0xc0, 0x7f, 0xdc};
+// B0:A7:32:23:16:38
+uint8_t senderMacAddress[] = {0xb0, 0xa7, 0x32, 0x23, 0x16, 0x38};
 
 WiFiHandler wifiHandler;
 
-int loglevel = 3;
+int loglevel = 4;
 
 int16_t arr[4] = {0,0,0,0};
 

@@ -1,5 +1,7 @@
 #include "driver.h"
 
+extern int ping;
+
 driver::driver(){}
 
 void driver::DriveMotor(int16_t j1, int16_t j2, int16_t j3){
@@ -9,7 +11,7 @@ void driver::DriveMotor(int16_t j1, int16_t j2, int16_t j3){
   int M3 = j1 + j2 + j3;
   int M4 = j1 - j2 + j3;
 
-  Serial.println("Motors : "+String(M1)+" : "+String(M2)+" : "+String(M3)+" : "+String(M4));
+  //Serial.println("Motors : "+String(M1)+" : "+String(M2)+" : "+String(M3)+" : "+String(M4));
 
   digitalWrite(MFL_RELAY1, M1 > 0 ? LOW : HIGH);
   digitalWrite(MFL_RELAY2, M1 < 0 ? LOW : HIGH);

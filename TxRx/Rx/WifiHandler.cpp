@@ -45,8 +45,10 @@ void WiFiHandler::onDataRecv(const uint8_t *mac, const uint8_t *incomingData, in
         driverobj.DriveKick(sensorOn, btnPressed);
 
         esp_err_t result = esp_now_send(mac, (uint8_t *)&sensorOn, sizeof(int));
-        Logger.logln(result == ESP_OK ? "Sent OK" : "Error sending", 4);
-
+        Logger.logln(result == ESP_OK ? "Sent OK" : "Error sending", 3);
+        if (result != ESP_OK) {
+            Logger.logln("Error details: " + String(esp_err_to_name(result)), 2);
+        }
     } else {
         // Data received from an unknown sender
         Logger.logln("\nReceived data from an unknown sender", 2);
