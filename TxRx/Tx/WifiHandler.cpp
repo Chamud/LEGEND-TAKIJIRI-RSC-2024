@@ -3,6 +3,8 @@
 #include "WifiHandler.h"
 
 extern uint8_t broadcastAddress[];
+extern int LED;
+
 int receivedData;
 
 WifiHandler::WifiHandler(const uint8_t* broadcastAddress) {
@@ -58,14 +60,15 @@ void WifiHandler::sendData(const int16_t data[]) {
 }
 
 void WifiHandler::OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+  // Serial.print(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 }
 
 void WifiHandler::onDataRecv(const uint8_t *mac, const uint8_t *incomingData, int len) {
     // Check if the data is received from a known sender
     if (memcmp(mac, broadcastAddress, 6) == 0) {       
       memcpy(&receivedData, incomingData, sizeof(int));
-      Serial.print("Received from slave: ");
+      Serial.print("| Received : ");
       Serial.println(receivedData);
+      digitalWrite(LED, receivedData == 0 ? LOW : HIGH);
     } 
 }

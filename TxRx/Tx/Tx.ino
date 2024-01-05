@@ -12,6 +12,7 @@ uint8_t broadcastAddress[] = {0xc4, 0xde, 0xe2, 0xc0, 0x7f, 0xdc};
 #define X2 32
 #define Y2 33
 #define B 25
+int LED = 26;
 
 WifiHandler wifiHandler(broadcastAddress);
 
@@ -19,7 +20,10 @@ int16_t arr[8] = {0,0,0,0,0};
 
 void setup() {
     Serial.begin(115200);
-    
+
+    pinMode(B, INPUT_PULLUP);
+    pinMode(LED, OUTPUT);
+
     if (!wifiHandler.init()) {
         Serial.println("WiFi initialization failed");
         return;

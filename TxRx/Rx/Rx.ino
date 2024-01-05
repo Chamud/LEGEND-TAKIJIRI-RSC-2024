@@ -63,8 +63,5 @@ void setup() {
 }
 
 void loop() {
-    sensorval = analogRead(KICK_PF);
-    int16_t data[] = {sensorval};
-    //wifiHandler.sendData(data);
     delay(ping);  
 }
