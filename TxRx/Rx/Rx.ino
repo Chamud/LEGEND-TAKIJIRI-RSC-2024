@@ -49,17 +49,19 @@ void setup() {
     pinMode(KICK_PF,ANALOG);
     analogSetAttenuation(ADC_11db);
 
-    ledcSetup(0, PWM_frequency, 12);
-    ledcAttachPin(MFL, 0);
+    // ledcSetup(0, PWM_frequency, 12);
+    // ledcAttachPin(MFL, 0);
 
-    ledcSetup(1, PWM_frequency, 12);
-    ledcAttachPin(MFR, 1);
+    // ledcSetup(1, PWM_frequency, 12);
+    // ledcAttachPin(MFR, 1);
 
-    ledcSetup(2, PWM_frequency, 12);
-    ledcAttachPin(MBL, 2);
+    // ledcSetup(2, PWM_frequency, 12);
+    // ledcAttachPin(MBL, 2);
 
-    ledcSetup(3, PWM_frequency, 12);
-    ledcAttachPin(MBR, 3);
+    // ledcSetup(3, PWM_frequency, 12);
+    // ledcAttachPin(MBR, 3);
+
+    
 }
 
 void loop() {

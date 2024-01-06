@@ -7,8 +7,8 @@ driver::driver(){}
 void driver::DriveMotor(int16_t j1, int16_t j2, int16_t j3){
 
   int M1 = j1 - j2 - j3;
-  int M2 = j1 + j2 - j3;
-  int M3 = j1 + j2 + j3;
+  int M2 = j1 + j2 + j3;
+  int M3 = j1 + j2 - j3;
   int M4 = j1 - j2 + j3;
 
   // Serial.println("");
@@ -26,10 +26,15 @@ void driver::DriveMotor(int16_t j1, int16_t j2, int16_t j3){
   digitalWrite(MBR_RELAY1, M4 > 0 ? LOW : HIGH);
   digitalWrite(MBR_RELAY2, M4 < 0 ? LOW : HIGH);
 
-  ledcWrite(0, 4095 - abs(M1));
-  ledcWrite(1, 4095 - abs(M2));
-  ledcWrite(2, 4095 - abs(M3));
-  ledcWrite(3, 4095 - abs(M4));
+  // ledcWrite(0, 4095 - abs(M1));
+  // ledcWrite(1, 4095 - abs(M2));
+  // ledcWrite(2, 4095 - abs(M3));
+  // ledcWrite(3, 4095 - abs(M4));
+
+  digitalWrite(MFL, LOW);
+  digitalWrite(MFR, LOW);
+  digitalWrite(MBL, LOW);
+  digitalWrite(MBR, LOW);
 
 //   ledcWrite(0, 4095 - abs(M1) > 4095 ? 4095 : abs(M1));
 //   ledcWrite(1, 4095 - abs(M2) > 4095 ? 4095 : abs(M2));
