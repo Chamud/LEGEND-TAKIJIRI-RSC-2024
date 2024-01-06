@@ -51,18 +51,21 @@ void WiFiHandler::onDataRecv(const uint8_t *mac, const uint8_t *incomingData, in
             Logger.log(" | ", 4);
         }
         
-        driverobj.DriveMotor(arr[0],arr[2],arr[4]);
+        driverobj.DriveMotor(-arr[2],arr[0],arr[4]);
         // Logger.logln(String(sensorval), 4);
         // Adjust 
-        bool sensorOn = analogRead(KICK_PF) > 500;
+        int sensorval = analogRead(KICK_PF);
+        bool sensorOn = sensorval > 10;
         bool btnPressed = (arr[8] != 0);
+
+        Logger.log("| "+(String)sensorval+" ", 4);
         
         driverobj.DriveKick(sensorOn, btnPressed);
 
         int sensorvalsend = sensorOn;
 
         esp_err_t result = esp_now_send(mac, (uint8_t *)&sensorvalsend, sizeof(int));
-        Logger.logln(result == ESP_OK ? "| Sent : " +String(sensorvalsend) : "Error sending", 3);
+        Logger.logln(result == ESP_OK ? "Sent : " +String(sensorvalsend) : "Error sending", 3);
         if (result != ESP_OK) {
             Logger.logln("Error details: " + String(esp_err_to_name(result)), 2);
         }

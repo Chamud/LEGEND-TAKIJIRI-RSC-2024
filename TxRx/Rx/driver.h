@@ -25,7 +25,7 @@
 static int sensorval;
 static bool runkick = false;
 static int counter = 0;
-static int delaytime = 2000;
+static int delaytime = 10;
 extern int ping;
 
 class driver {
