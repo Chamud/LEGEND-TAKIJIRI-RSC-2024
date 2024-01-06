@@ -35,9 +35,17 @@ void setup() {
 
 void loop() {
     arr[0] = mapValues(analogRead(X1), 300, 3500);
+    if (arr[0] >= -100 && arr[0] <= 100) arr[0] =  0;
+
     arr[1] = mapValues(analogRead(Y1), 300, 3500);
+    if (arr[1] >= -100 && arr[1] <= 100) arr[1] =  0;
+
     arr[2] = mapValues(analogRead(X2), 300, 3500);
+    if (arr[2] >= -100 && arr[2] <= 100) arr[2] =  0;
+
     arr[3] = mapValues(analogRead(Y2), 300, 3500);
+    if (arr[3] >= -100 && arr[3] <= 100) arr[3] =  0;
+
     arr[4] = digitalRead(B);
     wifiHandler.sendData(arr);
     delay(ping);
